@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Создание нового заказа</h1>
+
+  <form method="post">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit" class="btn btn-primary">Сохранить заказ</button>
+  </form>
+
+  <br>
+  <a href="{% url 'orders:order_list' %}">Вернуться к списку заказов</a>
+{% endblock %}
