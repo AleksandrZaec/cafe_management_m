@@ -19,12 +19,13 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'orders:order_create' %}">Add Order</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'orders:revenue' %}">Revenue</a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
-
-    <!-- Основной контент -->
     <div class="container mt-4">
         {% block content %}
         {% endblock %}

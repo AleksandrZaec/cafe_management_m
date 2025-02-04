@@ -9,6 +9,15 @@
 <p><strong>Статус:</strong> {{ order.get_status_display }}</p>
 <p><strong>Дата создания:</strong> {{ order.created_at|date:"d.m.Y H:i" }}</p>
 
+<h3>Блюда:</h3>
+<ul>
+  {% for item in order.items.all %}
+    <li>{{ item.name }} - {{ item.quantity }} шт. ({{ item.price }} ₽ за порцию)</li>
+  {% empty %}
+    <li>Нет блюд в заказе</li>
+  {% endfor %}
+</ul>
+
 <a href="{% url 'orders:order_update' order.id %}" class="btn btn-warning">Редактировать</a>
 <a href="{% url 'orders:order_delete' order.id %}" class="btn btn-danger">Удалить</a>
 <a href="{% url 'orders:order_list' %}" class="btn btn-secondary">Назад к списку</a>
