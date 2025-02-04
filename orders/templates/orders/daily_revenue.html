@@ -1,11 +1,9 @@
 {% extends "base.html" %}
 
+{% block title %}Выручка{% endblock %}
+
 {% block content %}
-<div class="container mt-5">
-    <h2 class="mb-4">Выручка за {{ date }}</h2>
-    <div class="alert alert-success">
-        <h4>Общая сумма: {{ revenue }} руб.</h4>
-    </div>
-    <a href="{% url 'orders:order_list' %}" class="btn btn-primary">Назад к заказам</a>
-</div>
+    <h2>Выручка за сегодня ({{ today|date:"d.m.Y" }})</h2>
+
+    <h3>Общая выручка за сегодня: {{ total_revenue }} ₽</h3>
 {% endblock %}
