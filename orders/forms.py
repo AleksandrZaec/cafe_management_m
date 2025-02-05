@@ -7,7 +7,7 @@ class OrderForm(forms.ModelForm):
     """ Форма для создания и обновления заказа."""
     class Meta:
         model: Type[Order] = Order
-        fields: list[str] = ["table_number", "status"]
+        fields: list[str] = ["table_number"]
 
 
 class OrderItemForm(forms.ModelForm):
