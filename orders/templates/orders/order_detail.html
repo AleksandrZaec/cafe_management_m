@@ -18,7 +18,23 @@
   {% endfor %}
 </ul>
 
-<a href="{% url 'orders:order_update' order.id %}" class="btn btn-warning">Редактировать</a>
-<a href="{% url 'orders:order_delete' order.id %}" class="btn btn-danger">Удалить</a>
-<a href="{% url 'orders:order_list' %}" class="btn btn-secondary">Назад к списку</a>
+<div class="d-flex justify-content-between">
+  <div class="status-buttons">
+    <form method="post">
+      {% csrf_token %}
+      <div class="btn-group">
+        <button type="submit" name="status" value="pending" class="btn btn-secondary">В ожидании</button>
+        <button type="submit" name="status" value="ready" class="btn btn-warning">Готово</button>
+        <button type="submit" name="status" value="paid" class="btn btn-success">Оплачено</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="action-buttons">
+    <a href="{% url 'orders:order_update' order.id %}" class="btn btn-warning">Редактировать</a>
+    <a href="{% url 'orders:order_delete' order.id %}" class="btn btn-danger">Удалить</a>
+    <a href="{% url 'orders:order_list' %}" class="btn btn-secondary">Назад к списку</a>
+  </div>
+</div>
+
 {% endblock %}
