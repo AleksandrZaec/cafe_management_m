@@ -33,3 +33,29 @@ def test_order_delete_view(client: Client, order: Order) -> None:
 
     assert response.status_code == 302
     assert not Order.objects.filter(pk=order.pk).exists()
+
+
+@pytest.mark.django_db
+def test_create_order(api_client):
+    """Тест создания заказа"""
+    payload = {
+        "table_number": 2,
+        "items": [
+            {"name": "Burger", "price": "10.50"},
+            {"name": "Fries", "price": "5.00"}
+        ]
+    }
+    response = api_client.post("/api/orders/", payload, format='json')
+    assert response.status_code == 201
+    assert response.data["table_number"] == 2
+    assert "id" in response.data
+
+
+@pytest.mark.django_db
+def test_update_order(api_client, create_order):
+    """Тест обновления статуса заказа"""
+    payload = {"table_number": 10, "status": "completed"}
+    response = api_client.patch(f"/api/orders/{create_order.id}/", payload, format='json')
+    assert response.status_code == 200
+    assert response.data["table_number"] == 10
+    assert response.data["status"] == "completed"

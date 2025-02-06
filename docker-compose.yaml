@@ -1,18 +1,45 @@
-version: '3.9'
+version: '3.12'
 
 services:
   db:
-    image: postgres:16-alpine3.19
-    container_name: db
-    ports:
-      - "5432:5432"
-    restart: always
+    image: postgres:latest
+    restart: on-failure
+    expose:
+      - '5432'
+    volumes:
+      - pg_data:/var/lib/postgresql/data/
     env_file:
       - .env
-    volumes:
-      - ./data/db:/var/lib/postgresql/data
     healthcheck:
-      test: [ "CMD", "pg_isready" ]
+      test: [ 'CMD-SHELL', 'pg_isready -U $POSTGRES_USER' ]
       interval: 10s
-      timeout: 5s
       retries: 5
+      timeout: 5s
+
+  app:
+    build: .
+    tty: true
+    ports:
+      - "8000:8000"
+    command: sh -c "python manage.py migrate && python manage.py csu || true && pytest && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - .env
+
+  test:
+    build: .
+    command: sh -c "sleep 10 && pytest"
+    volumes:
+      - .:/app
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - .env
+
+volumes:
+  pg_data:
