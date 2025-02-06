@@ -1,3 +1,4 @@
+from rest_framework.test import APIClient
 import pytest
 from decimal import Decimal
 from orders.models import Order, OrderItem
@@ -47,3 +48,13 @@ def order_data() -> Dict[str, str]:
         'orderitem_set-0-name': 'Пицца',
         'orderitem_set-0-price': '250.00',
     }
+
+
+@pytest.fixture
+def api_client():
+    return APIClient()
+
+
+@pytest.fixture
+def create_order():
+    return Order.objects.create(table_number=5, status='pending')

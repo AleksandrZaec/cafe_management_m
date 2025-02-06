@@ -6,7 +6,7 @@ authors = [
     {name = "AleksandrZaec",email = "zaecam95@mail.ru"}
 ]
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.12"
 dependencies = [
     "django (>=5.1.5,<6.0.0)",
     "psycopg2-binary (>=2.9.10,<3.0.0)",
@@ -17,6 +17,8 @@ dependencies = [
     "python-dotenv (>=1.0.1,<2.0.0)",
     "pytest (>=8.3.4,<9.0.0)",
     "pytest-django (>=4.9.0,<5.0.0)",
+    "drf-yasg (>=1.21.8,<2.0.0)",
+    "django-cors-headers (>=4.6.0,<5.0.0)",
 ]
 
 

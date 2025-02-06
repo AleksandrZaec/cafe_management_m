@@ -16,6 +16,8 @@ class OrderSerializer(serializers.ModelSerializer):
     """Сериализатор для заказа, включая блюда."""
 
     items = OrderItemSerializer(many=True)
+    total_price = serializers.DecimalField(max_digits=10, decimal_places=2, read_only=True)
+    status = serializers.CharField(default='pending', required=False)
 
     class Meta:
         model = Order
